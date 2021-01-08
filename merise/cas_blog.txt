@@ -1,0 +1,55 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE categorie(" & _
+   "nom_categorie VARCHAR(50)," & _
+   "PRIMARY KEY(nom_categorie)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE media(" & _
+   "nom_media VARCHAR(50)," & _
+   "type VARCHAR(50)," & _
+   "PRIMARY KEY(nom_media)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE article(" & _
+   "titre VARCHAR(50)," & _
+   "date_post DATETIME," & _
+   "contenus VARCHAR(255)," & _
+   "mot_clef VARCHAR(255)," & _
+   "nom_media VARCHAR(50) NOT NULL," & _
+   "nom_categorie VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(titre)," & _
+   "FOREIGN KEY(nom_media) REFERENCES media(nom_media)," & _
+   "FOREIGN KEY(nom_categorie) REFERENCES categorie(nom_categorie)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE membre(" & _
+   "nom_membre VARCHAR(50)," & _
+   "prenom_membre VARCHAR(50)," & _
+   "role INT," & _
+   "titre VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(nom_membre, prenom_membre)," & _
+   "FOREIGN KEY(titre) REFERENCES article(titre)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE commenter(" & _
+   "titre VARCHAR(50)," & _
+   "nom_membre VARCHAR(50)," & _
+   "prenom_membre VARCHAR(50)," & _
+   "coms VARCHAR(255)," & _
+   "PRIMARY KEY(titre, nom_membre, prenom_membre)," & _
+   "FOREIGN KEY(titre) REFERENCES article(titre)," & _
+   "FOREIGN KEY(nom_membre, prenom_membre) REFERENCES membre(nom_membre, prenom_membre)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE traduire(" & _
+   "titre VARCHAR(50)," & _
+   "nom_membre VARCHAR(50)," & _
+   "prenom_membre VARCHAR(50)," & _
+   "langue VARCHAR(50) NOT NULL," & _
+   "PRIMARY KEY(titre, nom_membre, prenom_membre)," & _
+   "FOREIGN KEY(titre) REFERENCES article(titre)," & _
+   "FOREIGN KEY(nom_membre, prenom_membre) REFERENCES membre(nom_membre, prenom_membre)" & _
+");"   
+
+End Sub

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Database>
+   <Name>cas_blog</Name>
+   <Table>
+      <Name>categorie</Name>
+      <Column>
+         <Name>nom_categorie</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <PK>
+         <Key>nom_categorie</Key>
+      </PK>
+   </Table>
+   <Table>
+      <Name>media</Name>
+      <Column>
+         <Name>nom_media</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>type</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <PK>
+         <Key>nom_media</Key>
+      </PK>
+   </Table>
+   <Table>
+      <Name>article</Name>
+      <Column>
+         <Name>titre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>date_post</Name>
+         <Type>DATETIME</Type>
+      </Column>
+      <Column>
+         <Name>contenus</Name>
+         <Type>VARCHAR(255)</Type>
+      </Column>
+      <Column>
+         <Name>mot_clef</Name>
+         <Type>VARCHAR(255)</Type>
+      </Column>
+      <Column>
+         <Name>nom_media</Name>
+         <Type>VARCHAR(50)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <Column>
+         <Name>nom_categorie</Name>
+         <Type>VARCHAR(50)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>titre</Key>
+      </PK>
+      <FK>
+         <Key>nom_media</Key>
+         <Reference>media(nom_media)</Reference>
+      </FK>
+      <FK>
+         <Key>nom_categorie</Key>
+         <Reference>categorie(nom_categorie)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>membre</Name>
+      <Column>
+         <Name>nom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>prenom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>role</Name>
+         <Type>INT</Type>
+      </Column>
+      <Column>
+         <Name>titre</Name>
+         <Type>VARCHAR(50)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>nom_membre, prenom_membre</Key>
+      </PK>
+      <FK>
+         <Key>titre</Key>
+         <Reference>article(titre)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>commenter</Name>
+      <Column>
+         <Name>titre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>nom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>prenom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>coms</Name>
+         <Type>VARCHAR(255)</Type>
+      </Column>
+      <PK>
+         <Key>titre, nom_membre, prenom_membre</Key>
+      </PK>
+      <FK>
+         <Key>titre</Key>
+         <Reference>article(titre)</Reference>
+      </FK>
+      <FK>
+         <Key>nom_membre, prenom_membre</Key>
+         <Reference>membre(nom_membre, prenom_membre)</Reference>
+      </FK>
+   </Table>
+   <Table>
+      <Name>traduire</Name>
+      <Column>
+         <Name>titre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>nom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>prenom_membre</Name>
+         <Type>VARCHAR(50)</Type>
+      </Column>
+      <Column>
+         <Name>langue</Name>
+         <Type>VARCHAR(50)</Type>
+         <Property>NOT NULL</Property>
+      </Column>
+      <PK>
+         <Key>titre, nom_membre, prenom_membre</Key>
+      </PK>
+      <FK>
+         <Key>titre</Key>
+         <Reference>article(titre)</Reference>
+      </FK>
+      <FK>
+         <Key>nom_membre, prenom_membre</Key>
+         <Reference>membre(nom_membre, prenom_membre)</Reference>
+      </FK>
+   </Table>
+</Database>
